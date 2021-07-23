@@ -1,0 +1,15 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: "bank-microservice"
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    username: "sa"
+    password: ""
+    driver-class-name: org.h2.Driver
+    generate-unique-name: false
+    name: "test-db"

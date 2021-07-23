@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aline</groupId>
-    <artifactId>aline-microservice-template</artifactId>
+    <artifactId>aline-bank-microservice</artifactId>
     <version>0.1.0</version>
 
     <packaging>pom</packaging>
@@ -17,7 +17,7 @@
 
     <modules>
         <module>core</module>
-        <module>microservice-template</module>
+        <module>bank-microservice</module>
     </modules>
     <build>
         <pluginManagement>

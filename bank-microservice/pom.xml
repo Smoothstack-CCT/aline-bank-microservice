@@ -12,10 +12,10 @@
     <packaging>jar</packaging>
 
     <groupId>com.aline</groupId>
-    <artifactId>microservice-template</artifactId>
+    <artifactId>bank-microservice</artifactId>
     <version>0.1.0</version>
-    <name>microservice-template</name>
-    <description>Microservice template project for Aline Financial</description>
+    <name>bank-microservice</name>
+    <description>Bank microservice for Aline Financial</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -58,6 +58,26 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aline</groupId>
+            <artifactId>core</artifactId>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
 
