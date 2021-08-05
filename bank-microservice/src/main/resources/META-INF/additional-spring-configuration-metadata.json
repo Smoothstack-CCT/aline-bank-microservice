@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "application.jwt.tokenprefix",
+      "type": "java.lang.String",
+      "description": "Description for application.jwt.tokenprefix.",
+      "default": "Bearer "
+    },
+    {
+      "name": "application.jwt.tokenexpirationafterdays",
+      "type": "java.lang.String",
+      "description": "Description for application.jwt.tokenexpirationafterdays."
+    },
+    {
+      "name": "application.jwt.secretkey",
+      "type": "java.lang.String",
+      "description": "Description for application.jwt.secretkey."
+    },
+    {
+      "name": "application.portal.user",
+      "type": "java.lang.String",
+      "description": "Description for application.portal.user."
+    }
+  ] }
