@@ -2,7 +2,10 @@ package com.aline.bankmicroservice.controller;
 
 import com.aline.bankmicroservice.service.BranchService;
 import com.aline.core.paginated.BranchPaginated;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -19,12 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/branches")
 @Slf4j(topic = "branch Controller")
 @AllArgsConstructor
-@Api(value = "/branches")
+@Tag(name = "branches")
 public class BranchController {
 
-    private final BranchService branchService;
     private static final int DEFAULT_PAGE_SIZE = 15;
+    private final BranchService branchService;
 
+    @Operation(description = "Retrieve a page of branches")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Successfully retrieves a paginated branch dto")})
     @GetMapping("")
     public ResponseEntity<BranchPaginated> getBranches(
             @PageableDefault(size = DEFAULT_PAGE_SIZE) @SortDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable

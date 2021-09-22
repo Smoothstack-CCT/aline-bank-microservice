@@ -39,7 +39,7 @@ class BranchServiceTest {
     void setUp() {
         Bank testBank = Bank.builder()
                 .id(1L)
-                .routingId(125000)
+                .routingNumber("125000")
                 .address("12345 MyStreet Ave")
                 .city("MyCity")
                 .state("Washington")

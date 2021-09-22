@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -46,7 +47,7 @@ class BranchControllerTest {
     void setUp() {
         Bank testBank = Bank.builder()
                 .id(1L)
-                .routingId(125000)
+                .routingNumber("125000000")
                 .address("12345 MyStreet Ave")
                 .city("MyCity")
                 .state("Washington")
@@ -92,6 +93,7 @@ class BranchControllerTest {
 
 
     @Test
+    @WithAnonymousUser
     void getPaginatedBranchesResponse_withSizeAndPageParams_statusIsOk() throws Exception {
         mock.perform(get("/branches")
                 .param("page", "0")

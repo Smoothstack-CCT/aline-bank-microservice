@@ -1,12 +1,14 @@
 package com.aline.bankmicroservice.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Root")
 @RestController
 public class RootController {
 
@@ -15,10 +17,10 @@ public class RootController {
      * @return 200 Response if service is healthy, otherwise 404 is returned
      */
     @GetMapping("/health")
-    @ApiOperation("Health Endpoint")
+    @Operation(description = "Health Endpoint")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Service is healthy."),
-            @ApiResponse(code= 404, message = "Service is unavailable")
+            @ApiResponse(responseCode = "200", description = "Service is healthy."),
+            @ApiResponse(responseCode = "404", description = "Service is unavailable")
     })
     public ResponseEntity<Void> healthCheck() {
         return ResponseEntity.ok().build();
