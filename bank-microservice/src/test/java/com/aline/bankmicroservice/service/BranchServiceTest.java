@@ -1,8 +1,11 @@
 package com.aline.bankmicroservice.service;
 
+import com.aline.bankmicroservice.dto.request.CreateBranch;
+import com.aline.bankmicroservice.dto.request.UpdateBranch;
 import com.aline.core.model.Bank;
 import com.aline.core.model.Branch;
 import com.aline.core.paginated.BranchPaginated;
+import com.aline.core.repository.BankRepository;
 import com.aline.core.repository.BranchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,13 +16,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -32,12 +38,16 @@ class BranchServiceTest {
     @MockBean
     BranchRepository branchRepository;
 
+    @MockBean
+    BankRepository bankRepository;
+
     private List<Branch> branches;
     private BranchPaginated testPage;
+    private Bank testBank;
 
     @BeforeEach
     void setUp() {
-        Bank testBank = Bank.builder()
+        testBank = Bank.builder()
                 .id(1L)
                 .routingNumber("125000")
                 .address("12345 MyStreet Ave")
@@ -95,5 +105,56 @@ class BranchServiceTest {
         assertEquals(branches, myTestPage.getContent());
         assertEquals(3, myTestPage.getContent().size());
         assertEquals(2, myTestPage.getSize());
+    }
+
+    @Test
+    void postBranch() {
+        CreateBranch testBranch = CreateBranch.builder()
+                .name("New Branch")
+                .address("1298 Seasame St")
+                .city("New York City")
+                .state("New York")
+                .zipcode("12345")
+                .phone("(123) 123-4567")
+                .bankID(1L).build();
+
+        when(bankRepository.findById(testBranch.getBankID())).thenReturn(Optional.of(testBank));
+
+        branchService.postBranch(testBranch);
+
+        verify(branchRepository).save(any(Branch.class));
+    }
+
+    @Test
+    @WithMockUser(username = "employee", authorities = "employee")
+    void updateBranch() {
+        UpdateBranch updateInfo = UpdateBranch.builder()
+                .id(1L)
+                .phone("(123) 123-4568")
+                .bankID(1L).build();
+        Branch myBranch = Branch.builder()
+                .id(1L)
+                .name("New Branch")
+                .address("1298 Seasame St")
+                .city("New York City")
+                .state("New York")
+                .zipcode("12345")
+                .phone("(123) 123-4568")
+                .bank(testBank).build();
+
+        when(bankRepository.findById(updateInfo.getBankID())).thenReturn(Optional.of(testBank));
+        when(branchRepository.findById(updateInfo.getId())).thenReturn(Optional.of(myBranch));
+
+        branchService.updateBranch(updateInfo);
+
+        verify(branchRepository).save(myBranch);
+
+    }
+
+    @Test
+    @WithMockUser(username = "employee", authorities = "employee")
+    void deleteBranch() {
+        branchService.deleteBranch(1L);
+        verify(branchRepository, times(1)).deleteById(1L);
     }
 }

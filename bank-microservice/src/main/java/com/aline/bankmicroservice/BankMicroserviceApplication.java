@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition( info =
         @Info(
                 title = "Bank Microservice",
-                description = "Microservice that manages members and branches"
+                description = "Microservice that manages bank and branches details and member search"
         )
 )
 public class BankMicroserviceApplication {
