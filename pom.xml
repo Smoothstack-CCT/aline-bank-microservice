@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.aline</groupId>
-    <artifactId>aline-microservice-template</artifactId>
+    <artifactId>aline-bank-microservice</artifactId>
     <version>0.1.0</version>
 
     <packaging>pom</packaging>
@@ -17,7 +17,7 @@
 
     <modules>
         <module>core</module>
-        <module>microservice-template</module>
+        <module>bank-microservice</module>
     </modules>
     <build>
         <pluginManagement>
@@ -26,6 +26,25 @@
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>3.9.0.2155</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.4</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
