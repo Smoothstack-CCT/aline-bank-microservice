@@ -22,4 +22,3 @@ Resources:
       ImageTagMutability: MUTABLE
       EncryptionConfiguration:
         EncryptionType: AES256
-  © 2021 GitHub, Inc.
