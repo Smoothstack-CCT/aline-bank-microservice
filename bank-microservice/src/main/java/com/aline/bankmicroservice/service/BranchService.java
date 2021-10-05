@@ -35,6 +35,7 @@ public class BranchService {
      * Creates a branch
      * @param branchInfo - a branch dto with bank ID to link the branch to.
      */
+    @PreAuthorize("hasAnyAuthority({'employee', 'administrator'})")
     public Branch postBranch(CreateBranch branchInfo){
         Bank bank = bankRepository.findById(branchInfo.getBankID()).orElseThrow(BankNotFoundException::new);
 

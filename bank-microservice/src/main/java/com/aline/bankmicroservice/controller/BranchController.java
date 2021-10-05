@@ -24,7 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/bank/branches")
+@RequestMapping("/branches")
 @Slf4j(topic = "branch Controller")
 @RequiredArgsConstructor
 @Tag(name = "branches")

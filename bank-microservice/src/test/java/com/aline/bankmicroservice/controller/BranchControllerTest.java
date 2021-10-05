@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -107,6 +108,7 @@ class BranchControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = "employee")
     void getPaginatedBranchesResponse_withBadParametersUsesDefaults_statusIsOk() throws Exception {
         mock.perform(get("/branches")
                 .param("page", "-1")
@@ -120,6 +122,7 @@ class BranchControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = "employee")
     void getPaginatedBranchesResponse_withNoUserInputsUsesDefaults_statusIsOk() throws Exception {
         mock.perform(get("/branches"))
                 .andExpect(status().isOk())
