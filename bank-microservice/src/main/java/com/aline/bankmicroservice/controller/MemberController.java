@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/bank/members")
+@RequestMapping("/members")
 @Slf4j(topic = "Member Controller")
 @AllArgsConstructor
 @Tag(name = "Member")

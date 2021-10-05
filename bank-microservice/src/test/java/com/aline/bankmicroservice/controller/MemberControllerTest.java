@@ -191,7 +191,7 @@ class MemberControllerTest {
     @Test
     @WithMockUser(authorities = "employee")
     void getMembersPaginatedResponse_WithSizeAndPageParams_andNoMemberSearchCriteria_statusIsOk() throws Exception {
-        mock.perform(get("/members/search")
+        mock.perform(get("/members")
                         .param("page", "0")
                         .param("size", "10")
                 )
@@ -204,7 +204,7 @@ class MemberControllerTest {
     @Test
     @WithMockUser(authorities = "employee")
     void getMembersPaginatedResponse_WithSizeAndPageParams_andNameInSearchCriteria_statusIsOk() throws Exception {
-        mock.perform(get("/members/search")
+        mock.perform(get("/members")
                         .param("page", "0")
                         .param("size", "10")
                         .param("searchName", "Mar")

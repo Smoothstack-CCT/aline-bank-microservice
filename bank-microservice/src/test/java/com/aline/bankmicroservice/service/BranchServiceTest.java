@@ -108,6 +108,7 @@ class BranchServiceTest {
     }
 
     @Test
+    @WithMockUser(authorities = "employee")
     void postBranch() {
         CreateBranch testBranch = CreateBranch.builder()
                 .name("New Branch")
