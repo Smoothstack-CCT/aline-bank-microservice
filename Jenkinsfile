@@ -6,7 +6,7 @@ pipeline {
     environment {
         COMMIT_HASH = "${sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()}"
         AWS_ID = credentials('AWS_ID')
-        SERVICE_NAME = 'bank-microservice'
+        SERVICE_NAME = 'bank'
         SERVICE_PORT = 8083
         REGION = 'us-east-2'
         APP_NAME = 'alinefinancial'
