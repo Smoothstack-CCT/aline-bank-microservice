@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage("Build MVN") {
             steps {
-                bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                bat "mvn -Dmaven.test.failure.ignore=true clean install"
             }
         }
 
@@ -20,7 +20,7 @@ pipeline {
             steps{
                 script{
                     withSonarQubeEnv(installationName: "sonarqube") {
-                        bat "mvn clean sonar:sonar -Dsonar.projectKey=aline-bank-microservice"
+                        bat "mvn sonar:sonar -Dsonar.projectKey=aline-bank-microservice"
                         }
                 }
 
