@@ -16,6 +16,19 @@ pipeline {
         }
 
 
+        stage('SonarQube Analysis') {
+            steps{
+                script{
+                    withSonarQubeEnv(installationName: "sonarqube") {
+                        bat "mvn sonar:sonar -Dsonar.projectKey=aline-account-microservice"
+                        }
+                }
+
+            }       
+        }
+
+
+
         stage("Build Docker"){
             steps{
                 bat "docker build -t laxwalrus/capstone-bank:$BUILD_NUMBER ."
