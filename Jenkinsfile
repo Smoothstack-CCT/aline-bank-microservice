@@ -13,7 +13,7 @@ pipeline {
             steps{
                 script{
                     withSonarQubeEnv(installationName: "sonarqube") {
-                        bat "clean test"
+                        bat "mvn clean test"
                         bat "mvn sonar:sonar"
                         }
                 }
