@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        AWS_CREDENTIALS = credentials("AWS")
+        AWS_CREDENTIALS=credentials("AWS")
     }
     agent any
 
