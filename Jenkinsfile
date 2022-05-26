@@ -9,8 +9,6 @@ pipeline {
     }
 
     stages {
-
-    stages {
         stage('SonarQube Analysis') {
             steps{
                 script{
@@ -75,6 +73,6 @@ pipeline {
     //         archiveArtifacts artifacts: 'bank-microservice/target/*.jar', followSymlinks: false
     //         }
     //     }
-    }
+    // }
     }
 }
