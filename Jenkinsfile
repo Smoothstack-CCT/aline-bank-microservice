@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        DOCKERHUB_CREDENTIALS=credentials("Dockerhub")
+        AWS_CREDENTIALS = credentials("AWS")
     }
     agent any
 
@@ -33,46 +33,34 @@ pipeline {
                 
             }
         
-        stage("Build MVN") {
+        stage("Build w/MVN") {
             steps {
-                bat "mvn -Dmaven.test.failure.ignore=true clean install"
+                bat "mvn clean package -Dskiptests"
             }
         }
 
+        stage("Build Image w/docker"){
+            steps{
+                bat "docker build -t $env.AWS_ECR_REGISTRY/bank-microservice-kdl:$BUILD_NUMBER ."
 
-    //     stage("Build Docker"){
-    //         steps{
-    //             bat "docker build -t laxwalrus/capstone-bank:$BUILD_NUMBER ."
+            }            
+        }
 
-    //         }            
-    //     }
-
-
-    //     stage("login to docker"){
-    //         steps{
-    //             bat "echo $DOCKERHUB_CREDENTIALS_PSW| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-    //         }
-    //     }
-
-    //     stage("Deploy Docker"){
-    //         steps{
-    //             bat "docker push laxwalrus/capstone-bank:$BUILD_NUMBER"
-    //         }
-    //     }
+        stage("Deploy to AWS"){
+            steps{
+                script{
+                   docker.withRegistry("https://$env.AWS_ECR_REGISTRY", "ecr:$env.AWS_REGION:$AWS_CREDENTIALS"){
+                       docker.image("$env.AWS_ECR_REGISTRY/bank-microservice-kdl:$BUILD_NUMBER").push()
+                   }
+                }
+            }
+        }
             
-
-
-    //     stage("Cleaning"){
-    //         steps{
-    //             bat "docker logout"
-    //         }
-    //     }
+        stage("Cleaning"){
+            steps{
+                bat "docker prune"
+            }
+        }
         
-    //     stage('Archive') {
-    //         steps {
-    //         archiveArtifacts artifacts: 'bank-microservice/target/*.jar', followSymlinks: false
-    //         }
-    //     }
-    // }
     }
-}
+    }
