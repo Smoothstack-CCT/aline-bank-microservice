@@ -13,7 +13,7 @@ pipeline {
             steps{
                 script{
                     withSonarQubeEnv(installationName: "sonarqube") {
-                        bat "mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar -Dsonar.projectKey=aline-bank-microservice-KDL"
+                        bat "mvn sonar:sonar -Dsonar.projectKey=aline-bank-microservice-KDL"
                         }
                 }
 
