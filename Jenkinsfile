@@ -13,7 +13,7 @@ pipeline {
             steps{
                 script{
                     withSonarQubeEnv(installationName: "sonarqube") {
-                        bat "mvn clean test sonar:sonar"
+                        bat "mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0:2155:sonar"
                         }
                 }
 
