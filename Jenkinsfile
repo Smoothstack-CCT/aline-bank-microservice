@@ -55,7 +55,7 @@ pipeline {
             
         stage("Cleaning"){
             steps{
-                bat "docker prune"
+                bat "docker system prune --all -f"
             }
         }
         
