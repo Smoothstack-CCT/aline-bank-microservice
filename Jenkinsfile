@@ -1,7 +1,4 @@
 pipeline {
-    environment {
-        AWS_CREDENTIALS=credentials("AWS")
-    }
     agent any
 
     tools {
@@ -49,7 +46,7 @@ pipeline {
         stage("Deploy to AWS"){
             steps{
                 script{
-                   docker.withRegistry("https://$env.AWS_ECR_REGISTRY", "ecr:$env.AWS_REGION:$AWS_CREDENTIALS"){
+                   docker.withRegistry("https://$env.AWS_ECR_REGISTRY", "ecr:$env.AWS_REGION:AWS"){
                        docker.image("$env.AWS_ECR_REGISTRY/bank-microservice-kdl:$BUILD_NUMBER").push()
                    }
                 }
