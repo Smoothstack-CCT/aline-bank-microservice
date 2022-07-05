@@ -75,18 +75,20 @@ pipeline {
                 }
             }
         }
-        stage("Deploy to AWS"){
-            // use docker compose to deploy/update microservies 
-        }
+        // stage("Deploy to AWS"){
+        //     use docker compose to deploy/update microservies 
+        // }
             
         stage("Cleaning"){
             steps{
-                sh "sudo docker system prune --all -f"
-                sh "sudo docker logout"
-                sh "sudo rm -rf ~/.aws/"
-                sh "sudo rm -rf ~/.sonar/*"
-                sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/*'
-                sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/.git*' 
+            sh 'docker context use default'
+            sh 'docker system prune --all -f'
+            sh 'docker logout'
+            sh 'sudo rm -rf ~/.aws/'
+            sh 'sudo rm -rf ~/.docker/'
+            sh 'sudo rm -rf ~/.sonar/*'
+            sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/*'
+            sh 'sudo rm -rf ~/jenkins/workspace/${JOB_NAME}/.git*'
 
 
             }
