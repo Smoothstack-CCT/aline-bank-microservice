@@ -66,6 +66,7 @@ pipeline {
         stage("Publish to AWS"){
             steps{
                 script{
+                    sh 'docker context use default'
                     COMMIT = "${GIT_COMMIT}"
                     SLICE = COMMIT[1..7]
                    docker.withRegistry("https://$env.AWS_ECR_REGISTRY_WEST", "ecr:$env.AWS_REGION_WEST:AWS-KDL"){
