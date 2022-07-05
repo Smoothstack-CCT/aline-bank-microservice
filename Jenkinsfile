@@ -110,7 +110,7 @@ pipeline {
 
                         sh "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ${env.AWS_ECR_REGISTRY_WEST}"
                
-                        // sh 'docker context create ecs kdl-ecs --profile kdl-aws-profile'
+                        sh 'docker context create ecs kdl-ecs --profile kdl-aws-profile'
 
                         sh 'docker context use kdl-ecs'     
 
