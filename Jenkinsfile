@@ -76,9 +76,53 @@ pipeline {
                 }
             }
         }
-        // stage("Deploy to AWS"){
-        //     use docker compose to deploy/update microservies 
-        // }
+
+        stage("Grab docker compose file"){
+            steps {
+
+                sh 'curl -H "Authorization: token ${githubtoken}" https://raw.githubusercontent.com/Cirrus-Biz/DevOPS-KDL/dev/AWS/docker-compose.yaml -o docker-compose.yaml'
+
+                sh 'cat docker-compose.yaml'
+            }
+        }
+
+
+        stage("docker compose up"){
+            steps{
+                script{  
+        
+                        sh 'docker logout'
+                        sh 'docker context use default'
+
+
+                        sh 'aws configure set aws_access_key_id ${AWS_ACCESS_KEY} --profile kdl-aws-profile'
+
+                        sh 'aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile kdl-aws-profile'
+
+                        sh 'aws configure set region us-west-2 --profile kdl-aws-profile' 
+
+                        sh 'aws configure set output json --profile kdl-aws-profile'
+
+                        sh 'export AWS_PROFILE=kdl-aws-profile'
+
+                        sh 'echo ${DOCKER_PASSWORD} | docker login --username ${DOCKER_USERNAME} --password-stdin'  
+  
+
+                        sh "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ${env.AWS_ECR_REGISTRY_WEST}"
+               
+                        // sh 'docker context create ecs kdl-ecs --profile kdl-aws-profile'
+
+                        sh 'docker context use kdl-ecs'     
+
+          
+                        sh 'docker compose -p "kdl-ecs" up -d --no-color'
+                                
+                    
+                }
+
+            }
+
+        }
             
         stage("Cleaning"){
             steps{
